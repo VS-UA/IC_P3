@@ -122,14 +122,16 @@ public:
 
 int main(int argc, char** argv)
 {
-    if (argc < 3)
+    if (argc < 5)
     {
-        cerr << "Usage: findlang t ri_dir" << endl;
+        cerr << "Usage: findlang t ri_dir k alpha" << endl;
         return 1;
     }
 
     string t_file = argv[1];
     string ri_dir = argv[2];
+    int k = atoi(argv[3]);
+    double alpha = atof(argv[4]);
 
     // create a map to store the compressed sizes for each language
     map<string, double> language_sizes;
@@ -151,7 +153,7 @@ int main(int argc, char** argv)
         string language = ri_file.substr(0, pos);
 
         // build the model for this language
-        fcm model(3, 0.5);
+        fcm model(k, alpha);
         model.read_file(ri_dir + "/" + ri_file);
 
         // calculate the compressed size of t using the model
