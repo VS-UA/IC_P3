@@ -1,0 +1,45 @@
+Figure 2.73 shows how such a trie is constructed for the string “zxzyzxxyzx” as-
+suming N = 2. A quick glance shows that the tree grows in width but not in depth. Its
+depth remains N + 1 = 3 regardless of how much input data has been read. Its width
+grows as more and more symbols are input, but not at a constant rate. Sometimes, no
+new nodes are added, such as in case 10, when the last x is read. At other times, up to
+three nodes are added, such as in cases 3 and 4, when the second z and the first y are
+added.
+Level 1 of the trie (just below the root) contains one node for each symbol read
+so far. These are the order-1 contexts. Level 2 contains all the order-2 contexts, and
+so on. Every context can be found by starting at the root and sliding down to one of
+the leaves. In case 3, e.g., the two contexts are xz (symbol z preceded by the order-1
+context x) and zxz (symbol z preceded by the order-2 context zx). In case 10, there are
+seven contexts ranging from xxy and xyz on the left to zxz and zyz on the right.
+The numbers in the nodes are context counts. The “z,4” on the right branch of
+case 10 implies that z has been seen 4 times. The “x,3” and “y,1” below it mean that
+these four occurrences were followed by x three times and by y once. The circled nodes
+show the different orders of the context of the last symbol added to the trie. In case 3,
+e.g., the second z has just been read and added to the trie. It was added twice, below
+the x of the left branch and the x of the right branch (the latter is indicated by the
+arrow). Also, the count of the original z has been incremented to 2. This shows that
+the new z follows the two contexts x (of order 1) and zx (order 2).
+It should now be easy for the reader to follow the ten steps of constructing the tree
+and to understand intuitively how nodes are added and counts updated. Notice that
+three nodes (or, in general, N +1 nodes, one at each level of the trie) are involved in each
+step (except the first few steps when the trie hasn’t reached its final height yet). Some
+of the three are new nodes added to the trie; the others have their counts incremented.
+The next point that should be discussed is how the algorithm decides which nodes
+to update and which to add. To simplify the algorithm, one more pointer is added to
+each node, pointing backward to the node representing the next shorter context. A
+pointer that points backward in a tree is called a vine pointer.
+Figure 2.74 shows the first ten steps in the of construction of the PPM trie for the
+14-symbol string “assanissimassa”. Each of the ten steps shows the new vine pointers
+(dashed lines in the figure) constructed by the trie updating algorithm while that step
+was handled. Notice that old vine pointers are not deleted; they are just not shown in
+later diagrams. In general, a vine pointer points from a node X on level n to a node
+with the same symbol X on level n − 1. All nodes on level 1 point to the root.
+A node in the PPM trie thus contains the following fields
+1. The code (ASCII or other) of the symbol.
+2. The count.
+3. A down pointer, pointing to the leftmost child of the node. In Figure 2.74, Case 10,
+for example, the leftmost son of the root is “a,2”. That of “a,2” is “n,1” and that of
+“s,4” is “a,1”.
+4. A right pointer, pointing to the next sibling of the node. The root has no right
+sibling. The next sibling of node “a,2” is “i,2” and that of “i,2” is “m,1”.
+5. A vine pointer. These are shown as dashed arrows in Figure

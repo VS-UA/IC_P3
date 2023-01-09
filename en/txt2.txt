@@ -1,0 +1,30 @@
+Before delving into the details of the next method, here is a general discussion of text
+compression. Most text compression methods are either statistical or dictionary based.
+The latter class breaks the text into fragments that are saved in a data structure called a
+dictionary. When a fragment of new text is found to be identical to one of the dictionary
+entries, a pointer to that entry is written on the compressed stream, to become the
+compression of the new fragment. The former class, on the other hand, consists of
+methods that develop statistical models of the text.
+A common statistical method consists of a modeling stage followed by a coding
+stage. The model assigns probabilities to the input symbols, and the coding stage then
+actually codes the symbols based on those probabilities. The model can be static or
+dynamic (adaptive). Most models are based on one of the following two approaches.
+Frequency: The model assigns probabilities to the text symbols based on their
+frequencies of occurrence, such that commonly occurring symbols are assigned short
+codes. A static model uses fixed probabilities, whereas a dynamic model modifies the
+probabilities “on the fly” while text is being input and compressed.
+Context: The model considers the context of a symbol when assigning it a proba-
+bility. Since the decoder does not have access to future text, both encoder and decoder
+must limit the context to past text, i.e., to symbols that have already been input and
+processed. In practice, the context of a symbol is the N symbols preceding it. We
+thus say that a context-based text compression method uses the context of a symbol to
+predict it (i.e., to assign it a probability). Technically, such a method is said to use an
+“order-N ” Markov model. The PPM method, Section 2.18, is an excellent example of
+a context-based compression method, although the concept of context can also be used
+to compress images.
+Some modern context-based text compression methods perform a transformation
+on the input data and then apply a statistical model to assign probabilities to the trans-
+formed symbols. Good examples of such methods are the Burrows-Wheeler method,
+Section 8.1, also known as the Burrows-Wheeler transform, or block sorting; the tech-
+nique of symbol ranking, Section 8.2; and the ACB method, Section 8.3, which uses an
+associative dictionary.

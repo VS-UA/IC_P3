@@ -1,0 +1,44 @@
+probability.) Another reason why a symbol must have nonzero probability is that its
+entropy (the smallest number of bits into which it can be encoded) depends on log2 P ,
+which is undefined for P = 0 (but gets very large when P → 0). This zero-probability
+problem faces any model, static or adaptive, that uses probabilities of occurrence of
+symbols to achieve compression. Two simple solutions are traditionally adopted for this
+problem, but neither has any theoretical justification.
+1. After analyzing a large quantity of data and counting frequencies, go over the fre-
+quency table, looking for empty cells. Each empty cell is assigned a frequency count
+of 1, and the total count is also incremented by 1. This method pretends that every
+digram and trigram has been seen at least once.
+2. Add 1 to the total count and divide this single 1 among all the empty cells. Each
+will get a count that’s less than 1 and, as a result, a very small probability. This assigns
+a very small probability to anything that hasn’t been seen in the training data used for
+the analysis.
+An adaptive context-based modeler also maintains tables with the probabilities of
+all the possible digrams (or trigrams or even longer contexts) of the alphabet and uses
+the tables to assign a probability to the next symbol S depending on a few symbols im-
+mediately preceding it (its context C). The tables are updated all the time as more data
+is being input, which adapts the probabilities to the particular data being compressed.
+Such a model is slower and more complex than the static one but produces better
+compression, since it uses the correct probabilities even when the input has data with
+probabilities much different from the average.
+A text that skews letter probabilities is called a lipogram. (Would a computer
+program without any goto statements be considered a lipogram?) The word comes
+from the Greek stem λ ́ιπω (lipo or leipo) meaning to miss, to lack, combined with
+the Greek γρ ́αμμα (gramma), meaning “letter” or “of letters.” Together they form
+λιπoγρ ́αμματ oσ. There are just a few examples of literary works that are lipograms:
+1. Perhaps the best-known lipogram in English is Gadsby, a full-length novel [Wright 39],
+by Ernest V. Wright, that does not contain any occurrences of the letter E.
+2. Alphabetical Africa by Walter Abish (W. W. Norton, 1974) is a readable lipogram
+where the reader is supposed to discover the unusual writing style while reading. This
+style has to do with the initial letters of words. The book consists of 52 chapters. In the
+first, all words begin with a; in the second, words start with either a or b, etc., until, in
+Chapter 26, all letters are allowed at the start of a word. In the remaining 26 chapters,
+the letters are taken away one by one. Various readers have commented on how little
+or how much they have missed the word “the” and how they felt on finally seeing it (in
+Chapter 20).
+3. The novel La Disparition is a 1969 French lipogram by Georges Perec that does not
+contain the letter E (this letter actually appears several times, outside the main text, in
+words that the publisher had to include, and these are all printed in red). La Disparition
+has been translated to English, where it is titled A Void, by Gilbert Adair. Perec also
+wrote a univocalic (text employing just one vowel) titled Les Revenentes (the revenents)
+employing only the vowel E. The title of the English translation (by Ian Monk) is The
+Exeter Text, Jewels, Secrets, Sex. (Perec also wrote a short history of lipograms, see
